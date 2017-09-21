@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Bienvenido a <%= title %></h1>
+    <h2><%= site_description %></h2>
+
+    <h2>Lista de artículos</h2>
+    <ul>
+    <% articles.forEach(function(article) { %>
+        <div>
+        <li><%= article.nombre %></li>
+        <li><%= article.venta %></li>
+        <li><%= article.precio %></li>
+        <li><%= article.foto %></li>
+        <li><%= article.tags %></li>
+        <br/>
+        </div>
+    <% }); %>
+    </ul>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{
+    "extends": "standard",
+    
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    
+    "rules": {
+        "semi": [2, "always"],
+        "space-before-function-paren": ["off"],
+        "no-unused-vars": [1],
+        "indent": [0],
+        "no-useless-return": [1],
+        "no-var": [2],
+        "no-tabs": "off",
+        "prefer-const": [1],
+        "no-use-before-define": ["error", { "functions": false, "classes": true }],
+        "strict": [2],
+        "quotes": "off",
+        "eqeqeq": ["error", "always"],
+        "no-eval": ["error"],
+        "no-magic-numbers": ["warn"],
+        "no-proto": ["warn"],
+        "prefer-promise-reject-errors": ["warn"],
+        "prefer-spread": "warn",
+        "comma-spacing": ["warn"],
+        "no-duplicate-imports": "error",
+        "new-cap": "error",
+        "new-parens": "error",
+        "class-methods-use-this": ["error"]
+//        "env": {
+  //          "node": 1
+    //    }
+    }
+}
