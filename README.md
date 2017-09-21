@@ -1,7 +1,11 @@
-npm install express-generator -g
-express --view=ejs nodeapi
+# KC-Modulo-de-Nodejs_Basico
 
-Arrancar el servidor de MongoDB --->
+*Crear el esqueleto de la aplicación*
+
+```npm install express-generator -g
+express --view=ejs nodeapi```
+
+*Arrancar el servidor de MongoDB*
 ```mongod --dbpath ./data/ --directoryperdb```
 
 [initandlisten] waiting for connections on port 27017
@@ -21,7 +25,13 @@ Con "Postman" se lanzan peticiones de creación ("Post). En la pestaña de "body
 Desde el navegador, la url para acceder a los artículo en formato JSON es la siguiente:
 ```http://localhost:3000/apiv1/articles```
 
----------------------------------------------------------
+*Módulo eslint*
+
+``` npm i eslint --save-dev
+config file: ./node_modules/.bin/eslint --init
+run eslint: ./node_modules/.bin/eslint yourfile.js ```
+
+*Apuntes de teoría*
 
 Consumir APIs de terceros ---> módulo 'request'. npm install request
 
@@ -33,15 +43,8 @@ await consume una promesa.
 
 "ts-node" --> módulo para usar TypeScript en Node
 
-Práctica: lo de los cluster no se hace
---------------------------------------------------
-Módulo eslint
+*Sobre el enunciado de la práctica*
 
-npm i eslint --save-dev
-config file: ./node_modules/.bin/eslint --init
-run eslint: ./node_modules/.bin/eslint yourfile.js
---------------------------------------------------
-
+Lo de los cluster no se hace
 La creación de anuncios solo hace falta hacerla en el API, 
 en el front solo se pide mostrar los anuncios con algún filtro.
-
