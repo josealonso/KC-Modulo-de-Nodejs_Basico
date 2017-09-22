@@ -6,16 +6,8 @@ const fs = require('fs');
 const path = require('path');
 
 const INI_DATA_FILE = 'articles.json';
-const conn = mongoose.connection;
-conn.on('error', (err) => {
-	console.log('Error de conexión', err);
-	process.exit(1);
-});
-conn.once('open', () => {
-	console.log('Conectado a MongoDB');
-});
 
-mongoose.connect('mongodb://localhost/Nodepop'); // Nodepop es el nombre de la base de datos
+require('./lib/connectMongoose');
 
 const articleSchema = mongoose.Schema({
 	// _id: Number,

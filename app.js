@@ -5,8 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-// const index = require('./routes/index');
-// const users = require('./routes/users');
+require('./lib/connectMongoose');
 
 const app = express();
 

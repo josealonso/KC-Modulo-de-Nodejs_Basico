@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'); ////
 
 // Le pedimos a mongoose que nos de el modelo de Article
 // const mongoose = require('mongoose');
@@ -20,17 +19,6 @@ const Article = require('../../models/Article');
  * - Por precio.
  * - Por etiqueta.
  */
-const conn = mongoose.connection;
-conn.on('error', (err) => {
-	console.log('Error de conexión', err);
-	process.exit(1);
-});
-/* conn.once('open', () => {
-	console.log('Conectado a MongoDB');
-});  */
-
-// mongoose.connect('mongodb://localhost/Nodepop'); // Nodepop es el nombre de la base de datos
-
 
 router.get('/', (req, res, next) => {
 	console.log(`        Esto es "router.get(/)" `);

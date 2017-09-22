@@ -5,17 +5,6 @@ const Article = require('./../models/Article');
 
 const { query, validationResult } = require('express-validator/check');
 
-const conn = mongoose.connection;
-conn.on('error', (err) => {
-	console.log('Error de conexión', err);
-	process.exit(1);
-});
-conn.once('open', () => {
-	console.log('Conectado a MongoDB');
-});
-
-mongoose.connect('mongodb://localhost/Nodepop'); // Nodepop es el nombre de la base de datos
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	Article.find({}, function(err, data) {
