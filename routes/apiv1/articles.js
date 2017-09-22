@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'); ////
 
 // Le pedimos a mongoose que nos de el modelo de Article
 // const mongoose = require('mongoose');
@@ -20,62 +19,65 @@ const Article = require('../../models/Article');
  * - Por precio.
  * - Por etiqueta.
  */
-const conn = mongoose.connection;
-conn.on('error', (err) => {
-	console.log('Error de conexión', err);
-	process.exit(1);
-});
-/* conn.once('open', () => {
-	console.log('Conectado a MongoDB');
-});  */
-
-// mongoose.connect('mongodb://localhost/Nodepop'); // Nodepop es el nombre de la base de datos
-
 
 router.get('/', (req, res, next) => {
-	console.log(`        Esto es "router.get(/)" `);
+	// console.log(`        Esto es "router.get(/)" `);
 	const nombre = req.query.nombre;
 	const venta = req.query.venta;
 	const precio = req.query.precio;
 	const tags = req.query.tags; // ?tags=work, motor
 	const skip = parseInt(req.query.skip);
 	const limit = parseInt(req.query.limit);
+	let sort = req.query.sort;
+	let sortingOrder = 1;
 
 	const filter = {};
 
-	console.log(`   skip: ${skip} limit: ${limit}   `);
-	console.log(`   nombre: ${nombre} venta: ${venta} precio: ${precio}   `);
-	if (nombre) {
-		filter.nombre = nombre;
+	// console.log(`   skip: ${skip} limit: ${limit}   `);
+	// console.log(`   nombre: ${nombre} venta: ${venta} precio: ${precio}   `);
+	if (sort) {
+		if (sort === 'precio') {
+			sortingOrder = -1;
+		} /* else {
+			res.send(new CustomError());
+		} */
 	}
+	if (nombre) {
+		filter.nombre = new RegExp('^' + nombre, 'i');
+	} // Cuidado ---> no poner comillas en la cadena de búsqueda, sólo "nombre=gafas"
 	if (venta) {
 		filter.venta = venta;
 	}
 	if (precio) {
-		filter.precio = precio;
+		const precioComoTexto = precio.toString();
+
+		if (!precioComoTexto.includes('-')) {
+			filter.precio = precio;
+		} else {
+			let [ limitMin, limitMax ] = precioComoTexto.split('-');
+			const precioMin = limitMin !== '' ? parseInt(limitMin) : 0;
+			const precioMax = limitMax !== '' ? parseInt(limitMax) : 100000;
+			// console.log('Mín: ', precioMin);   console.log('Máx: ', precioMax);
+			filter.precio = { $gte: precioMin, $lte: precioMax }; // sin comillas !!
+		}
 	}
 	if (tags) {
-		filter.tags = tags;
+		const tagElements = tags.split(',');
+		filter.tags = { $in: tagElements };
+		// Para mostrar artículos con TODAS las etiquetas --> $all
 		// ['work', 'lifestyle', 'motor', 'mobile'].find(elem => elem === 'work');
 	}
 
-	// recuperar una lista de artículos
-/*	Article.find({}, function(err, data) {
-		console.log(`Inside "Article.find({})"`);
-		if (err) {
-			throw err;
-			// return;
-		}
-		// Show all the items
-		console.log(data);
-	});  */
-
-	Article.lista(filter, skip, limit)
+	Article.lista(filter, skip, limit, sortingOrder)
 		.then((lista) => {
 			res.json({
 				success: true,
 				rows: lista
 			});
+			if (lista.length === 0) {
+				console.log('      CustomError !!');
+				// res.send(new CustomError());
+			}
 		})
 		.catch((err) => {
 			console.log('Error', err);
@@ -121,7 +123,7 @@ router.post('/', (req, res, next) => {
 			next(err);
 			return;
 		}
-	res.json({ success: true, result: articleSaved });
+		res.json({ success: true, result: articleSaved });
 	});
 });
 
