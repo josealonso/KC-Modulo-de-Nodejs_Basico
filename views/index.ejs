@@ -11,12 +11,12 @@
     <h2>Lista de artículos</h2>
     <ul>
     <% articles.forEach(function(article) { %>
-        <div>
+        <div class="item">
         <li><%= article.nombre %></li>
         <li><%= article.venta %></li>
         <li><%= article.precio %></li>
-        <li><%= article.foto %></li>
         <li><%= article.tags %></li>
+        <img class="images" src="<%= article.foto %>" alt="Foto"> 
         <br/>
         </div>
     <% }); %>

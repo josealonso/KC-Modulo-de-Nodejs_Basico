@@ -23,7 +23,7 @@ Con "Postman" se lanzan peticiones de creación ("Post). En la pestaña de "body
 "x-www-form-urlencoded".
 
 Desde el navegador, la url para acceder a los artículo en formato JSON es la siguiente:
-```http://localhost:3000/apiv1/articles```
+```http://localhost:3000/apiv1/anuncios```
 
 *Módulo eslint*
 
@@ -48,3 +48,6 @@ await consume una promesa.
 Lo de los cluster no se hace
 La creación de anuncios solo hace falta hacerla en el API, 
 en el front solo se pide mostrar los anuncios con algún filtro.
+
+------------------------------------------
+TODO: índices, paginación

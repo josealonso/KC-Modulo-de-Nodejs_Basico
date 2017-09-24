@@ -16,10 +16,11 @@ const articleSchema = new mongoose.Schema({
 
 // Métodos de instancia ---> .methods
 // Añadimos método estático
-articleSchema.statics.lista = function(filter, skip, limit, callback) {
+articleSchema.statics.lista = function(filter, skip, limit, sortingOrder, callback) {
 	const query = Article.find(filter);
 	query.skip(skip);
 	query.limit(limit);
+	query.sort( { precio : sortingOrder} );  
 
 	return query.exec(callback); // ejecutamos la consulta
 };
