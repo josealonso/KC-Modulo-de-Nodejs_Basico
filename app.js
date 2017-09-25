@@ -1,13 +1,12 @@
+require('./lib/connectMongoose');
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-
-// const index = require('./routes/index');
-// const users = require('./routes/users');
-require('./lib/connectMongoose');    /////
+const myLocaleSystem = require('./internationalization/myLocaleSystem');
 
 const app = express();
 
@@ -15,28 +14,24 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(function(req, res, next) {
-	// console.log('he recibido una peticion');
-	next();
-});
-
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.static(path.join(__dirname, 'public/images')));
+app.use('/anuncios', express.static(path.join(__dirname, 'public/images')));
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/articles'));
-// app.use('/apiv1/articles', require('/routes/apiv1/articles'));   Error. Cannot find module ''
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	const err = new Error('Not Found');
+	
+	// const err = new Error(errorMessage);
 	err.status = 404;
 	next(err);
 });
@@ -45,13 +40,16 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
 	if (err.array) {
 		// validation error
+		const localizedMessage = myLocaleSystem.translate('Not valid');
 		err.status = 422;
 		const errInfo = err.array({ onlyFirstError: true })[0];
 		err.message = isAPI(req)
-			? { message: 'Not valid', errors: err.mapped() }
-			: `Not valid - ${errInfo.param} ${errInfo.msg}`;
+			? { message: localizedMessage, errors: err.mapped() }
+			: `${localizedMessage} - ${errInfo.param} ${errInfo.msg}`;
 	}
 
+	const localizedMessage = myLocaleSystem.translate('Not Found');
+	err = new Error(localizedMessage);
 	res.status(err.status || 500);
 
 	// si es una petición al API respondo JSON...

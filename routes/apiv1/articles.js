@@ -1,5 +1,6 @@
 // 'use strict';  // eslint: "'use strict' is unnecessary inside of modules"
 
+const myLocaleSystem = require('../../internationalization/myLocaleSystem');
 const express = require('express');
 const router = express.Router();
 
@@ -10,77 +11,19 @@ const router = express.Router();
 // Segunda alternativa (hay q exportar "Article.js")
 const Article = require('../../models/Article');
 
-// GET parcial o lista de artículos paginada
 // El q llama al resolve de la promesa es Mongoose
-/**
- * Filtros de búsqueda implementados:
- * - Por nombre.
- * - Por tipo de anuncio (venta o búsqueda).
- * - Por precio.
- * - Por etiqueta.
- */
-
 router.get('/', (req, res, next) => {
-	// console.log(`        Esto es "router.get(/)" `);
-	const nombre = req.query.nombre;
-	const venta = req.query.venta;
-	const precio = req.query.precio;
-	const tags = req.query.tags; // ?tags=work, motor
-	const skip = parseInt(req.query.skip);
-	const limit = parseInt(req.query.limit);
-	let sort = req.query.sort;
-	let sortingOrder = 1;
-
-	const filter = {};
-
-	// console.log(`   skip: ${skip} limit: ${limit}   `);
-	// console.log(`   nombre: ${nombre} venta: ${venta} precio: ${precio}   `);
-	if (sort) {
-		if (sort === 'precio') {
-			sortingOrder = -1;
-		} /* else {
-			res.send(new CustomError());
-		} */
-	}
-	if (nombre) {
-		filter.nombre = new RegExp('^' + nombre, 'i');
-	} // Cuidado ---> no poner comillas en la cadena de búsqueda, sólo "nombre=gafas"
-	if (venta) {
-		filter.venta = venta;
-	}
-	if (precio) {
-		const precioComoTexto = precio.toString();
-
-		if (!precioComoTexto.includes('-')) {
-			filter.precio = precio;
-		} else {
-			let [ limitMin, limitMax ] = precioComoTexto.split('-');
-			const precioMin = limitMin !== '' ? parseInt(limitMin) : 0;
-			const precioMax = limitMax !== '' ? parseInt(limitMax) : 100000;
-			// console.log('Mín: ', precioMin);   console.log('Máx: ', precioMax);
-			filter.precio = { $gte: precioMin, $lte: precioMax }; // sin comillas !!
-		}
-	}
-	if (tags) {
-		const tagElements = tags.split(',');
-		filter.tags = { $in: tagElements };
-		// Para mostrar artículos con TODAS las etiquetas --> $all
-		// ['work', 'lifestyle', 'motor', 'mobile'].find(elem => elem === 'work');
-	}
-
-	Article.lista(filter, skip, limit, sortingOrder)
+	Article.lista(req)
 		.then((lista) => {
 			res.json({
 				success: true,
 				rows: lista
 			});
 			if (lista.length === 0) {
-				console.log('      CustomError !!');
-				// res.send(new CustomError());
+				console.log(myLocaleSystem.translate('No Match'));
 			}
 		})
 		.catch((err) => {
-			console.log('Error', err);
 			next(err);
 			return;
 		});
@@ -109,11 +52,10 @@ router.get('/:id', (req, res, next) => {
 });
 
 // POST /
-// Crear un artículo
+// Crear un anuncio
 router.post('/', (req, res, next) => {
-	// console.log('req.body');
 	console.log('       body:', req.body);
-	// Creamos un artículo
+	// Creamos un anuncio
 	const article = new Article(req.body);
 
 	// lo guardamos en la base de datos
@@ -128,7 +70,7 @@ router.post('/', (req, res, next) => {
 });
 
 /***********************************************************/
-// PUT / Actualizar un agente
+// PUT / Actualizar un anuncio
 router.put('/:clave', (req, res, next) => {
 	const _id = req.params.clave;
 	// new: true le indica q devuelve el objeto después de actualizar
@@ -140,16 +82,16 @@ router.put('/:clave', (req, res, next) => {
 		{
 			new: true
 		},
-		(err, agenteActualizado) => {
+		(err, articuloActualizado) => {
 			if (err) {
-				console.log('Error', err);
+				console.log('Error', err.message1);
 				next(err);
 				return; // Si no ponemos esta línea, da error de "Can't set headers after they are sent.",
 				// pq se ha respondido más de una vez.
 			}
 			res.json({
 				success: true,
-				result: agenteActualizado
+				result: articuloActualizado
 			});
 		}
 	);
@@ -176,9 +118,5 @@ router.delete('/:id', (req, res, next) => {
 		}
 	);
 });
-
-/*
-Si quiero mucha velocidad, uso MongoDB
-Si existen muchas relaciones en los datos, uso SQL */
 
 module.exports = router;

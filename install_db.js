@@ -1,5 +1,5 @@
 // 'use strict';
-require('./lib/connectMongoose');    /////
+require('./lib/connectMongoose');    
 
 const mongoose = require('mongoose');
 const assert = require('assert');
@@ -8,7 +8,6 @@ const path = require('path');
 const INI_DATA_FILE = 'articles.json';
 
 const articleSchema = mongoose.Schema({
-	// _id: Number,
 	nombre: String,
 	venta: Boolean,
 	precio: Number,
@@ -37,22 +36,13 @@ function buildArticles(jsonFile) {
 			return;
 		}
 		const dataFromFile = JSON.parse(data);
-		// console.log(dataFromFile);
-		// Article.collection.insertMany(dataFromFile, function(err, res) {
 		Article.insertMany(dataFromFile, function(err, res) {
 			assert.equal(null, err);
-			// console.log(`          Insertados ${res.insertedCount} anuncios`);
 			// assert.equal(dataFromFile.length, res.insertedCount);
 			console.log(`Cargados ${res.insertedCount} anuncios`);
 		});
-
-		// console.log('Cerrando conexión......');
-		// conn.close();
 	});
 }
-
-// Carga los anuncios o artículos
-// Creamos un registro por cada elemento del fichero "articles.json"
 
 deleteAllTheArticles();
 buildArticles('articles.json');
