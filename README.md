@@ -45,8 +45,10 @@ npm run dev
 
 - Para ver los anuncios filtrados
 > http://localhost:3000/anuncios/?skip=0&limit=4&sort=precio&precio=260-300&tags=mobile&venta=true
+
 Devuelve un anuncio
 > http://localhost:3000/anuncios/?skip=1&limit=4&sort=precio&precio=260-300&tags=mobile&venta=true
+
 Devuelve cero anuncios
 
   - *sort=precio* muestra los anuncios en orden descendiente de precio. Por defecto, el orden es ascendiente.
@@ -74,7 +76,7 @@ Lo de los cluster no se hace
 La creación de anuncios solo hace falta hacerla en el API, 
 en el front solo se pide mostrar los anuncios con algún filtro.
 
-### TODO: índices, paginación
+### TODO 
 
 - Mejorar las vistas (ficheros .ejs).
 - Crear componentes visuales para filtrar los anuncios.
