@@ -14,7 +14,7 @@ const { query, validationResult } = require('express-validator/check');
  * - Por precio.
  * - Por etiqueta.
  */
-router.get('/anuncios', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	Article.lista(req)
 		.then((lista) => {
 			res.render('index', {

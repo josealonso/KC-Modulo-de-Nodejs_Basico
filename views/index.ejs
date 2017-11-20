@@ -2,34 +2,41 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='../public/stylesheets/style.css' />
+    <link rel='stylesheet' href='stylesheets/style.css' />
   </head>
   <body>
-    <h1>Bienvenido a <%= title %></h1>
-    <h2><%= site_description %></h2>
+    <div class="header">
+        <h1>Bienvenido a <%= title %></h1>
+        <h2><%= site_description %></h2>
+        <img class="logo" src="images/logo.png" alt="Logo">
+    </div>
 
     <% if (articles.length === 0) { %>
         <h2>Ningún artículo coincide con los criterios de búsqueda</h2>
     <% } else { %>
 
         <h2>Lista de artículos</h2>
+        <% let message; let articlePhoto; %>
 
-        <ul>
+        <div class="articles-container">
         <% articles.forEach(function(article) { %>
         
-        <% let message = (article.venta === true) ? "Se vende" : "Se busca"; %>
-        
-        <div class="item">
-        <li><%= article.nombre %></li>
-        <li><%= message %></li>
-        <li><%= article.precio %></li>
-        <li><%= article.tags %></li>
-        <img class="images" src="<%= article.foto %>" alt="Foto" width="300" height="250"
-        style="{ padding: 20px; }"> 
+            <div class="article-container">
+              <div>
+                  <% message = (article.venta === true) ? "Se vende" : "Se busca"; %>
+                  <% articlePhoto = "images/" + article.foto; %>
+                  <p><%= article.nombre %></p>
+                  <p><%= message %></p>
+                  <p><%= article.precio %> euros</p>
+                  <p><%= article.tags %></p>
+              </div> 
+              <div>
+                  <img class="images" src= <%= articlePhoto %> alt="Foto">
+              </div>
+            </div>
         <br/>
-        </div>
         <% }); %>
-        </ul>
+        </div>
 
     <% } %>
 

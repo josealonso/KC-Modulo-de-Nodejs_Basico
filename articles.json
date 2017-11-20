@@ -5,22 +5,22 @@
 		"precio": 200,
 		"foto": "coche-2.jpg",
 		"tags": [ "motor" ]
-	},
+	}, 
 
-	{ "nombre": "ferrari biplaza", "venta": true, "precio": 220, "foto": "coche-1.jpg", "tags": [ "motor" ] },
+	{ "nombre": "Ferrari biplaza", "venta": true, "precio": 220, "foto": "coche-1.jpg", "tags": [ "motor" ] },
 
-	{ "nombre": "coche clásico", "venta": true, "precio": 240, "foto": "coche-3.jpg", "tags": [ "motor", "lifestyle" ] },
+	{ "nombre": "Coche clásico", "venta": true, "precio": 240, "foto": "coche-3.jpg", "tags": [ "motor", "lifestyle" ] },
 
-	{ "nombre": "gafas tintadas", "venta": true, "precio": 260, "foto": "lfst-7.jpg", "tags": [ "lifestyle" ] },
+	{ "nombre": "Gafas tintadas", "venta": true, "precio": 260, "foto": "lfst-7.jpg", "tags": [ "lifestyle" ] },
 
-	{ "nombre": "móvil personalizado", "venta": false, "precio": 280, "foto": "lfst-6.jpg", "tags": [ "lifestyle", "mobile" ] },
+	{ "nombre": "Móvil personalizado", "venta": false, "precio": 280, "foto": "lfst-6.jpg", "tags": [ "lifestyle", "mobile" ] },
 
-	{ "nombre": "zapatillas deportivas", "venta": true, "precio": 300, "foto": "lfst-3.jpg", "tags": [ "lifestyle" ] },
+	{ "nombre": "Zapatillas deportivas", "venta": true, "precio": 300, "foto": "lfst-3.jpg", "tags": [ "lifestyle" ] },
 
-	{ "nombre": "móvil de última generación", "venta": true, "precio": 300, "foto": "movil-2.jpg", "tags": [ "mobile" ] },
+	{ "nombre": "Móvil de última generación", "venta": true, "precio": 300, "foto": "movil-2.jpg", "tags": [ "mobile" ] },
 
-	{ "nombre": "ratón cableado", "venta": true, "precio": 300, "foto": "work-1.jpg", "tags": [ "work" ] },
+	{ "nombre": "Ratón cableado", "venta": true, "precio": 300, "foto": "work-1.jpg", "tags": [ "work" ] },
 
-	{ "nombre": "informático extenuado", "venta": true, "precio": 300, "foto": "work-3.jpg", "tags": [ "work", "lifestyle" ] }
+	{ "nombre": "Informático extenuado", "venta": true, "precio": 300, "foto": "work-3.jpg", "tags": [ "work", "lifestyle" ] }
 
 ]
