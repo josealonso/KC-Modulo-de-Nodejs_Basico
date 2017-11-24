@@ -7,13 +7,37 @@ a {
 	color: #00b7ff;  
 }
 
-.header {
+.header-text {
 	text-align: center;
 }
 
+.header-images {
+/*	display: block;
+	align-items: center;
+*/	
+}
+
 .logo {
+	text-align: center; 
 	width: 200px;
 	height: 150px;
+}
+
+.tags-container {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.tag-control {
+  font-size: 14px;
+  margin: 0 20px;
+  padding: 10px;
+  background: #ffeeff;
+}
+
+.chosen-tag {
+    background: green;
+	color: white;
 }
 
 .articles-container { 

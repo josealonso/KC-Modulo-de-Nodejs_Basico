@@ -5,11 +5,24 @@
     <link rel='stylesheet' href='stylesheets/style.css' />
   </head>
   <body>
-    <div class="header">
+    <div class="header-text">
         <h1>Bienvenido a <%= title %></h1>
         <h2><%= site_description %></h2>
-        <img class="logo" src="images/logo.png" alt="Logo">
     </div>
+    <div class="header-images">
+    
+      <div>
+        <img class="logo" src="images/logo.png" alt="Logo">
+      </div>
+      <div class="tags-container">
+      <h3>Select the tags you're interested in</h3>
+        <input type="button" id="motor-tag" class="tag-control" value="motor"> 
+        <input type="button" id="mobile-tag" class="tag-control" value="mobile">
+        <input type="button" id="lifestyle-tag" class="tag-control" value="lifestyle">  
+      </div> 
+    
+    </div>
+    
 
     <% if (articles.length === 0) { %>
         <h2>Ningún artículo coincide con los criterios de búsqueda</h2>
@@ -41,4 +54,7 @@
     <% } %>
 
     </body>
-</html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="javascripts/tags.js"></script>
+
+</html> 

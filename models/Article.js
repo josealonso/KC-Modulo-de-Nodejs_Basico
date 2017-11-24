@@ -74,10 +74,9 @@ articleSchema.statics.lista = function(req, callback) {
 			sortingOrder = { precio: -1 };
 		}
 	}
-	// let params = [ nombre, venta, precio, tags ];
-	// let filter = buildFilter(params);
 	let filter = buildFilter(nombre, venta, precio, tags);
 	const query = Article.find(filter).skip(skip).limit(limit).sort(sortingOrder);
+	console.log('                Vamos a ejecutar la búsqueda: ');
 	return query.exec(callback); // ejecutamos la consulta
 };
 

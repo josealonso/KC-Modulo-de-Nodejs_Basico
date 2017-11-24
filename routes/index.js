@@ -17,6 +17,7 @@ const { query, validationResult } = require('express-validator/check');
 router.get('/', function(req, res, next) {
 	Article.lista(req)
 		.then((lista) => {
+			console.log('                                 Reloading....');
 			res.render('index', {
 				title: 'Nodepop',
 				site_description: 'Tu portal de compra-venta',
