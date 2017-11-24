@@ -11,15 +11,11 @@ function getRequest(url, params) { // req.query.tags;
           tags: params // 'motor'
       },
       success: function(data) {
-         // if (data.success == true) { 
-              setTimeout(function() {
-                  location.reload(); 
-              }, 1000); 
-       // }  
+                 // location.reload();     // something is missing here ?? 
           // $(".articles-container").load(location.href + " .articles-container");
       },
-      error: function() {
-
+      error: function(err) {
+          console.log(err);
       }
   });
 };
