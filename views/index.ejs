@@ -11,47 +11,77 @@
     </div>
     <div class="header-images">
     
-      <div>
-        <img class="logo" src="images/logo.png" alt="Logo">
-      </div>
+      <!--<div><img class="logo" src="images/logo.png" alt="Logo"></div> -->
       <div class="tags-container">
-      <h3>Select the tags you're interested in</h3>
+      <h3>Seleccione las categorías que le interesan</h3>
         <input type="button" id="motor-tag" class="tag-control" value="motor"> 
         <input type="button" id="mobile-tag" class="tag-control" value="mobile">
-        <input type="button" id="lifestyle-tag" class="tag-control" value="lifestyle">  
+        <input type="button" id="lifestyle-tag" class="tag-control" value="lifestyle">
+        <input type="button" id="work-tag" class="tag-control" value="work">
+        <input type="button" id="submit-query" class="tag-query" value="Buscar">  
       </div> 
     
     </div>
-    
 
     <% if (articles.length === 0) { %>
         <h2>Ningún artículo coincide con los criterios de búsqueda</h2>
     <% } else { %>
 
-        <h2>Lista de artículos</h2>
         <% let message; let articlePhoto; %>
+    <% } %>
+    
+    <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><a href="?" class="home-link">Lista de anuncios</a></h1> 
+      <p class="lead">Listando: <%= articles.length %> de <%= total %></p>
+    </div>
+  </div>
 
-        <div class="articles-container">
-        <% articles.forEach(function(article) { %>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead><tr>
+          <th>Nombre</th>
+          <th>Venta</th>
+          <th style="text-align: right">Precio</th>
+          <th>Foto</th>
+          <th>Etiquetas</th>
+        </tr></thead>
         
-            <div class="article-container">
-              <div>
-                  <% message = (article.venta === true) ? "Se vende" : "Se busca"; %>
-                  <% articlePhoto = "images/" + article.foto; %>
-                  <p><%= article.nombre %></p>
-                  <p><%= message %></p>
-                  <p><%= article.precio %> euros</p>
-                  <p><%= article.tags %></p>
-              </div> 
-              <div>
-                  <img class="images" src= <%= articlePhoto %> alt="Foto">
-              </div>
-            </div>
-        <br/>
-        <% }); %>
+        <div id="articles-container">
+
+        <tbody>
+        <% articles.forEach(anuncio => { %>
+        <% articlePhoto = "images/" + anuncio.foto; %>
+          <tr>
+            <td><%= anuncio.nombre %></td>
+            <td style="text-align: center"><%= anuncio.venta ? 'Si' : 'No' %></td>
+            <td style="text-align: center"><%= anuncio.precio / 100 %>€</td>
+            <td><img class="images" src="<%= articlePhoto %>" alt="Foto"></td>
+            <td style="text-align: center"><%= anuncio.tags %></td>
+          </tr>
+        <% }) %>
+
+        </tbody>
+
         </div>
 
-    <% } %>
+      </table>
+
+      <p>Ejemplos:</p>
+
+      <ul>
+        <li><a href="?">Todos (max. 1000)</a></li>
+        <li><a href="?start=2&limit=2">Paginado</a></li>
+        <li><a href="?sort=precio">Ordenado por precio ascendente</a></li>
+        <li><a href="?sort=-precio">Ordenado por precio descendente</a></li>
+        <li><a href="?tags=mobile">Con etiqueta "mobile"</a></li>
+      </ul>
+
+    </div>
+  </div>
+
 
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

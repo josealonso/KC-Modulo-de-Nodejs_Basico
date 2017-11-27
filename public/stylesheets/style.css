@@ -23,6 +23,11 @@ a {
 	height: 150px;
 }
 
+.home-link {
+    text-decoration: none;
+	color: black;
+}
+
 .tags-container {
   padding: 20px 0;
   text-align: center;
@@ -35,9 +40,20 @@ a {
   background: #ffeeff;
 }
 
+.tag-query {
+  font-size: 16px;
+  margin: 0 100px;
+  padding: 10px;
+  background: #808099;
+}
+
 .chosen-tag {
     background: green;
 	color: white;
+}
+
+th {
+	padding: 20px;
 }
 
 .articles-container { 
@@ -57,7 +73,7 @@ a {
 }
 
 .images {
-	width: 300px;
-	height: 250px;
-	padding: 20px;
+	width: 130px;
+	height: 100px;
+	padding: 5px;
 }

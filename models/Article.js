@@ -15,7 +15,6 @@ const articleSchema = new mongoose.Schema(
 	{ collection: 'articles' }
 );
 
-// function buildFilter(queryParameters) {
 function buildFilter(nombre, venta, precio, tags) {
 	// let params = [];
 	// let [ nombre, venta, precio, tags ] = params.split(',');
@@ -39,16 +38,14 @@ function buildFilter(nombre, venta, precio, tags) {
 			filter.precio = { $gte: precioMin, $lte: precioMax };
 		}
 	}
-	if (tags) {
+	
+	if (tags) {  
 		const tagElements = tags.split(',');
 		filter.tags = { $in: tagElements };
 		console.log('    FFF:', filter.tags);
-	}
+	} 
 	return filter;
 }
-
-// Métodos de instancia ---> .methods
-// Añadimos método estático
 
 /* Lista de anuncios paginada
  *
@@ -69,13 +66,13 @@ articleSchema.statics.lista = function(req, callback) {
 	const sort = req.query.sort;
 	let sortingOrder = { precio: 1 };
 
-	if (sort) {
+	if (sort) { 
 		if (sort === 'precio') {
 			sortingOrder = { precio: -1 };
 		}
 	}
 	let filter = buildFilter(nombre, venta, precio, tags);
-	const query = Article.find(filter).skip(skip).limit(limit).sort(sortingOrder);
+	const query = Article.find(filter).skip(skip).limit(limit).sort(sortingOrder);     // Article.find().skip(skip).limit(limit).sort(sortingOrder);
 	console.log('                Vamos a ejecutar la búsqueda: ');
 	return query.exec(callback); // ejecutamos la consulta
 };

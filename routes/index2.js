@@ -45,26 +45,21 @@ function filterData(list, req) {  // Esta funC es llamada 2 veces, ¿por qué?, 
 	}
 }
 
-router.get('/', function(req, res, next) {
+router.get('/datos', function(req, res, next) {
 	Article.lista(req)
 		.then((lista) => {
-			// let filteredList = filterData(lista, req);
-			console.log('============================= LISTA de artículos SIN filtrar ================================');
-			console.log(lista.length + ' articles will be shown');
-			lista.forEach(function(element) {
+			let filteredList = filterData(lista, req);
+			console.log('============================= LISTA de artículos filtrados con BOTONES ================================');
+			console.log(filteredList.length + ' articles will be shown');
+			filteredList.forEach(function(element) {
                 console.log(element.tags);
 			});
 			console.log('=================================================================================');
-
-			// const {total, rows} = await Anuncio.list(filters, start, limit, sort, includeTotal);
-            // res.render('anuncios', { total, anuncios: rows });
-
-			res.render('index', {
+			res.render('index2', {
 				// renderiza o genera la imagen
 				title: 'Nodepop',
 				site_description: 'Tu portal de compra-venta',
-				articles: lista,    // filteredList
-				total: 9
+				articles: filteredList
 			});
 			if (lista.length === 0) {
 				console.log('Ningún artículo coincide con los criterios de búsqueda');
